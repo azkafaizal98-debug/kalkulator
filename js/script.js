@@ -111,8 +111,41 @@
         return;
       }
 
+      // Handle minus untuk angka negatif dari tombol minus di numpad
+      if (btn.closest('.min')) {
+        const value = btn.querySelector('option')?.value || txt;
+        if (value === '-') {
+          if (!opera) {
+            // Jika angka1 kosong atau positif, tambahkan minus di depan
+            if (!angka1) {
+              angka1 = '-';
+            } else if (!angka1.startsWith('-')) {
+              angka1 = '-' + angka1;
+            } else {
+              // Jika sudah negatif, jadikan positif
+              angka1 = angka1.substring(1);
+            }
+          } else {
+            // Jika angka2 kosong atau positif, tambahkan minus di depan
+            if (!angka2) {
+              angka2 = '-';
+            } else if (!angka2.startsWith('-')) {
+              angka2 = '-' + angka2;
+            } else {
+              // Jika sudah negatif, jadikan positif
+              angka2 = angka2.substring(1);
+            }
+          }
+          render();
+          return;
+        }
+      }
+
       // Operator
       if (['+', '-', 'x', '*', '/'].includes(txt)) {
+        // Skip jika tombol minus untuk angka negatif
+        if (btn.closest('.min')) return;
+        
         // jika belum ada angka1 dan user klik operator, abaikan
         if (!angka1) return;
         // jika sudah ada operator tapi angka2 kosong, ganti operator
@@ -143,6 +176,33 @@
           if (!angka1.includes('.')) angka1 += '.';
         } else {
           if (!angka2.includes('.')) angka2 += '.';
+        }
+        render();
+        return;
+      }
+
+      // Handle minus untuk angka negatif
+      if (btn.closest('.min') && txt === '-') {
+        if (!opera) {
+          // Jika angka1 kosong atau positif, tambahkan minus di depan
+          if (!angka1) {
+            angka1 = '-';
+          } else if (!angka1.startsWith('-')) {
+            angka1 = '-' + angka1;
+          } else {
+            // Jika sudah negatif, jadikan positif
+            angka1 = angka1.substring(1);
+          }
+        } else {
+          // Jika angka2 kosong atau positif, tambahkan minus di depan
+          if (!angka2) {
+            angka2 = '-';
+          } else if (!angka2.startsWith('-')) {
+            angka2 = '-' + angka2;
+          } else {
+            // Jika sudah negatif, jadikan positif
+            angka2 = angka2.substring(1);
+          }
         }
         render();
         return;
