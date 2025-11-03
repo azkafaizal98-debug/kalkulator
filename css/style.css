@@ -107,7 +107,7 @@
 
 @keyframes kanan {
     from{
-        translate: 0%;
+        translate: -40%;
     }
     to{
         translate: 120%;
@@ -115,7 +115,7 @@
 }
 @keyframes kiri {
     from{
-        translate: 0%;
+        translate: 40%;
     }
     to{
         translate: -120%;
